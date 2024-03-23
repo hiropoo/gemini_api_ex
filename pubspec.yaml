@@ -19,6 +19,7 @@ dependencies:
   envied: ^0.5.3
   riverpod_annotation: ^2.3.5
   flutter_riverpod: ^2.5.1
+  flutter_markdown: ^0.6.22
 
 dev_dependencies:
   flutter_test:

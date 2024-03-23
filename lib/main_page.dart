@@ -24,7 +24,7 @@ class MainPage extends ConsumerWidget {
       },
       child: Scaffold(
           appBar: AppBar(
-            title: const Text('Gemini API Ex'),
+            title: const Text('Chat Gemini', style : TextStyle(fontWeight: FontWeight.w600)),
           ),
           body: Container(
             margin: const EdgeInsets.fromLTRB(3, 0, 3, 30),
@@ -65,6 +65,8 @@ class MainPage extends ConsumerWidget {
             
                             // 送信ボタンが押された時の処理
                             onPressed: () async {
+                              FocusScope.of(context).unfocus();
+                              
                               // チャット生成中フラグを立てる
                               ref.read(chatGenerationJudgeProvider.notifier).changeFlag(true); 
             
@@ -94,9 +96,6 @@ class MainPage extends ConsumerWidget {
                                       isUser: false,
                                     ),
                                   );
-            
-                              debugPrint("あなた: $yourText");
-                              debugPrint("Gemini: $geminiText");
                             },
                             icon: isGenerating ?  const CupertinoActivityIndicator(): const Icon(Icons.send),
                           ),

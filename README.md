@@ -1,16 +1,32 @@
-# gemini_api_ex
+# Gemini Chat App　
 
-A new Flutter project.
 
-## Getting Started
+[Gemini](https://gemini.google.com/app)（対話型AI）のAPIを使用したAIとのチャットアプリです。
 
-This project is a starting point for a Flutter application.
+※ API の練習用
 
-A few resources to get you started if this is your first Flutter project:
+### アプリの見た目
+↓ メインページ
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+<img src="images/main_page.png" alt="メインページ" width= "32%">
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+<br>
+
+↓ 使用例
+<img src="images/ex1.png" alt="" width = "32%"><img src="images/ex2.png" alt="" width = "32%"><img src="images/ex3.png" alt="" width = "32%">
+
+
+---
+
+### 使用した技術
+|カテゴリ |技術 |
+|:---:|:---:|
+| フロントエンド | Flutter |
+| 状態管理 | riverpod |
+| API | Gemini |
+|APIkeyの難読化 | envied | 
+
+---
+
+### 最後に
+プロジェクトをご覧いただき、ありがとうございます。
