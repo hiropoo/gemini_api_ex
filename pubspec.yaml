@@ -25,7 +25,7 @@ dev_dependencies:
     sdk: flutter
   build_runner:
   envied_generator:
-
+  riverpod_generator:
   flutter_lints: ^3.0.0
 
 

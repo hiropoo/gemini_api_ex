@@ -1,13 +1,19 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gemini_api_ex/chat_card.dart';
+import 'package:gemini_api_ex/chat_generation_judge.dart';
+import 'package:gemini_api_ex/chat_list.dart';
 import 'package:gemini_api_ex/gemini.dart';
 
-class MainPage extends StatelessWidget {
+class MainPage extends ConsumerWidget {
   const MainPage({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     TextEditingController _controller = TextEditingController();
+    final chatList = ref.watch(chatListProvider); // チャットリスト
+    final isGenerating = ref.watch(chatGenerationJudgeProvider);  // チャット生成中かどうか
 
     String? yourText;
     String? geminiText;
@@ -22,10 +28,23 @@ class MainPage extends StatelessWidget {
           ),
           body: Column(
             children: [
-              const Icon(Icons.lightbulb),
-              const ChatCard(text: "こんにちは",isUser: true,),
-              const ChatCard(text: "こんにちは、私はGeminiです",isUser: false,),
-              const Spacer(),
+
+              // チャットの表示
+              chatList.when(
+                error: (_,__) => const Text('エラーが発生しました'), 
+                loading: () => const CircularProgressIndicator(),
+                data: (chatList) => Expanded(
+                  child: ListView.builder(
+                    itemCount: chatList.length,
+                    itemBuilder: (context, index) {
+                      return chatList[index];
+                    },
+                  ),
+                ) 
+              ),
+
+
+              // const Spacer(),
               Row(
                 children: [
                   const SizedBox(
@@ -43,16 +62,43 @@ class MainPage extends StatelessWidget {
                         labelText: 'Message',
                         hintText: "Message",
                         suffixIcon: IconButton(
-                          onPressed: () async {
-                            yourText = _controller.text;
-                            _controller.clear();
-                            geminiText = await Gemini.getText(yourText!);
 
+                          // 送信ボタンが押された時の処理
+                          onPressed: () async {
+                            // チャット生成中フラグを立てる
+                            ref.read(chatGenerationJudgeProvider.notifier).changeFlag(true); 
+
+                            yourText = _controller.text;
+                            if(yourText!.isEmpty) {
+                              // チャット生成中フラグを下げる
+                              ref.read(chatGenerationJudgeProvider.notifier).changeFlag(false);
+                              return; 
+                            }
+
+                            ref.read(chatListProvider.notifier).addNewChat(
+                              ChatCard(
+                                text: yourText!,
+                                isUser: true,
+                              ),
+                            );
+
+                            _controller.clear();
+                            
+                            geminiText = await Gemini.getText(yourText!);
+                            // チャット生成中フラグを下げる
+                            ref.read(chatGenerationJudgeProvider.notifier).changeFlag(false);
+
+                            ref.read(chatListProvider.notifier).addNewChat(
+                                  ChatCard(
+                                    text: geminiText!,
+                                    isUser: false,
+                                  ),
+                                );
 
                             debugPrint("あなた: $yourText");
                             debugPrint("Gemini: $geminiText");
                           },
-                          icon: const Icon(Icons.send),
+                          icon: isGenerating ?  const CupertinoActivityIndicator(): const Icon(Icons.send),
                         ),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(30),
