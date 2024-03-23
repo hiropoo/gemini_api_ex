@@ -23,7 +23,7 @@ flutter_markdown パッケージを使用して、チャットのメッセージ
 
 ↓ 変更後の見た目
 
-<img src="images/extra1.png.png" alt="" width= "32%">
+<img src="images/extra1.png" alt="" width= "32%">
 
 
 ---
