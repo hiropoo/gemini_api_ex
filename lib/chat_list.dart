@@ -11,11 +11,7 @@ class ChatList extends _$ChatList {
     
     return [
       const ChatCard(
-        text: "こんにちは",
-        isUser: true,
-      ),
-      const ChatCard(
-        text: "こんにちは、私はGeminiです",
+        text: "こんにちは、私はGeminiです。\nご用件をお聞かせください。",
         isUser: false,
       ),
     ];
