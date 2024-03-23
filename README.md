@@ -17,6 +17,15 @@
 <img src="images/ex1.png" alt="" width = "32%"><img src="images/ex2.png" alt="" width = "32%"><img src="images/ex3.png" alt="" width = "32%">
 
 
+#### 追記
+
+flutter_markdown パッケージを使用して、チャットのメッセージをMarkdown形式で表示するように変更しました。
+
+↓ 変更後の見た目
+
+<img src="images/extra1.png.png" alt="" width= "32%">
+
+
 ---
 
 ### 使用した技術

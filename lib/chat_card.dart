@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_markdown/flutter_markdown.dart';
 
 class ChatCard extends StatelessWidget {
   const ChatCard({super.key, required this.text, required this.isUser});
@@ -41,9 +42,12 @@ class ChatCard extends StatelessWidget {
                     style: const TextStyle(
                       fontWeight: FontWeight.bold,
                     )),
-                Text(
-                  text,
-                  softWrap: true,
+                MarkdownBody(
+                  data: text,
+                  styleSheet: MarkdownStyleSheet(
+                    strong: const TextStyle(fontWeight: FontWeight.bold),
+                    listBullet: const TextStyle(color: Colors.blue), // 箇条書きの点の色を設定
+                  ),
                 ),
               ],
             ),

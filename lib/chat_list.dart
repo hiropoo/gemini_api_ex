@@ -3,15 +3,14 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'chat_list.g.dart';
 
-
 @riverpod
 class ChatList extends _$ChatList {
   @override
-  Future<List<ChatCard>> build() async{
-    
+  Future<List<ChatCard>> build() async {
     return [
       const ChatCard(
-        text: "こんにちは、私はGeminiです。\nご用件をお聞かせください。",
+        text: """こんにちは、私はGeminiです。  
+              ご用件をお聞かせください。""",
         isUser: false,
       ),
     ];
@@ -20,6 +19,5 @@ class ChatList extends _$ChatList {
   /// chatListに新しいメッセージを追加するメソッド
   void addNewChat(ChatCard chatCard) {
     state = AsyncValue.data([...state.value!, chatCard]);
-  }  
-  
+  }
 }
